@@ -1,1 +1,193 @@
-<p>planned-visits works!</p>
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top" id="nav-container">
+    <a class="navbar-brand" style="color:white;">Hospital App</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor02"
+        aria-controls="navbarColor02" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarColor02">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item active">
+                <div class="dropdown">
+                    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownOrderButton"
+                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Заказ услуг
+                    </button>
+                    <div class="dropdown-menu" aria-labelledby="dropdownOrderButton">
+                        <a class="dropdown-item" href="#">Запись на анализы</a>
+                        <a class="dropdown-item" href="#">Запись на процедуры</a>
+                    </div>
+                </div>
+            </li>
+            <li class="nav-item active">
+                <a class="nav-link">Аптека <span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item active">
+                <a class="btn nav-link">Заказ талона <span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item active">
+                <a class="nav-link">Выезд на дом <span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item active">
+                <a class="nav-link">Контакты <span class="sr-only">(current)</span></a>
+            </li>
+        </ul>
+
+        <a *ngIf="isAuthenticated" (click)="goToPersonalAccount()" class="nav-link"
+            style="color:white; cursor: pointer;">Личный кабинет</a>
+    </div>
+</nav>
+
+<div class="container">
+
+    <div class="main-body">
+
+        <nav aria-label="breadcrumb" class="main-breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+                <li class="breadcrumb-item active" aria-current="page"><a href="/account">User Profile</a></li>
+                <li class="breadcrumb-item active" aria-current="page">Planned Visits</li>
+            </ol>
+        </nav>
+        <h3>Запланированные посещения</h3>
+
+        <table class="table mt-3">
+            <thead>
+                <h6>Анализы</h6>
+            </thead>
+            <h6 *ngIf="analyses?.length==0">У вас пока нет записей на анализы</h6>
+            <thead *ngIf="analyses?.length!=0">
+                <tr>
+                    <th scope="col">№</th>
+                    <th scope="col">Дата</th>
+                    <th scope="col">Название</th>
+                    <th scope="col">Номер кабинета</th>
+                    <th scope="col">Отмена записи</th>
+                </tr>
+            </thead>
+            <tbody>
+                <ng-container *ngFor="let analysis of analyses; let i = index">
+                    <tr>
+                        <th scope="row">{{i+1}}</th>
+                        <td>{{analysis.dateTime}}</td>
+                        <td>{{analysis.name}}</td>
+                        <td>{{analysis.roomNumber}}</td>
+                        <td><a class="btn btn-danger text-white"
+                                (click)="openModal(content,analysis.id, 'analysis')">Отменить</a></td>
+                    </tr>
+                </ng-container>
+            </tbody>
+        </table>
+
+        <table class="table mt-3">
+            <thead>
+                <h6>Процедуры</h6>
+            </thead>
+            <h6 *ngIf="procedures?.length==0">У вас пока нет записей на процедуры</h6>
+            <thead *ngIf="procedures?.length!=0">
+                <tr>
+                    <th scope="col">№</th>
+                    <th scope="col">Дата</th>
+                    <th scope="col">Название</th>
+                    <th scope="col">Номер кабинета</th>
+                    <th scope="col">Отмена записи</th>
+                </tr>
+            </thead>
+            <tbody>
+                <ng-container *ngFor="let procedure of procedures; let i = index">
+                    <tr>
+                        <th scope="row">{{i+1}}</th>
+                        <td>{{procedure.dateTime}}</td>
+                        <td>{{procedure.name}}</td>
+                        <td>{{procedure.roomNumber}}</td>
+                        <td><a class="btn btn-danger text-white"
+                                (click)="openModal(content,procedure.id, 'procedure')">Отменить</a></td>
+                    </tr>
+                </ng-container>
+            </tbody>
+        </table>
+
+        <table class="table mt-3">
+            <thead>
+                <h6>Визиты к врачам</h6>
+            </thead>
+            <h6 *ngIf="tickets?.length==0">У вас пока нет записей к врачам</h6>
+            <thead *ngIf="tickets?.length!=0">
+                <tr>
+                    <th scope="col">№</th>
+                    <th scope="col">Дата</th>
+                    <th scope="col">Врач</th>
+                    <th scope="col">Специализация</th>
+                    <th scope="col">Номер кабинета</th>
+                    <th scope="col">Отмена записи</th>
+                </tr>
+            </thead>
+            <tbody>
+                <ng-container *ngFor="let dticket of tickets; let i = index">
+                    <tr>
+                        <th scope="row">{{i+1}}</th>
+                        <td>{{dticket.dateTime}}</td>
+                        <td>{{dticket.lastName}} {{dticket.firstName}} {{dticket.patronymic}}</td>
+                        <td>{{dticket.speciality}}</td>
+                        <td>{{dticket.roomNumber}}</td>
+                        <td><a class="btn btn-danger text-white"
+                                (click)="openModal(content,dticket.id, 'ticket')">Отменить</a></td>
+                    </tr>
+                </ng-container>
+            </tbody>
+        </table>
+
+        <table class="table mt-3">
+            <thead>
+                <h6>Вызовы на дом</h6>
+            </thead>
+            <h6 *ngIf="home?.length==0">У вас пока нет вызовов на дом</h6>
+            <thead *ngIf="home?.length!=0">
+                <tr>
+                    <th scope="col">№</th>
+                    <th scope="col">Дата</th>
+                    <th scope="col">Врач</th>
+                    <th scope="col">Специализация</th>
+                    <th scope="col">Отмена записи</th>
+                </tr>
+            </thead>
+            <tbody>
+                <ng-container *ngFor="let hticket of home; let i = index">
+                    <tr>
+                        <th scope="row">{{i+1}}</th>
+                        <td>{{hticket.dateTime}}</td>
+                        <td>{{hticket.lastName}} {{hticket.firstName}} {{hticket.patronymic}}</td>
+                        <td>{{hticket.speciality}}</td>
+                        <td><a class="btn btn-danger text-white"
+                                (click)="openModal(content,hticket.id, 'home')">Отменить</a></td>
+                    </tr>
+                </ng-container>
+            </tbody>
+        </table>
+
+    </div>
+</div>
+<footer class="fixed-bottom footer">
+    <div class="footer__row">
+        <div class="footer__copy col-2">Copy, 2021</div>
+        <div class="footer__text col-7 pl-3">Hospital App</div>
+    </div>
+</footer>
+
+<ng-template #content let-c="close" let-d="dismiss">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title" id="modal-basic-title">Подтверждение</h5>
+            <button type="button" class="close" aria-label="Close" data-dismiss="modal" (click)="d('Cross click')">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <div class="modal-body">
+            <div>Вы действительно хотите отменить запись?</div>
+        </div>
+        <div class="modal-footer">
+            <button type="button" id="confirm-cancel-button" class="btn btn-secondary" data-dismiss="modal"
+                (click)="d('Cross click')">Нет</button>
+            <button type="button" class="btn btn-primary" (click)="c('yes')">Да</button>
+        </div>
+    </div>
+</ng-template>

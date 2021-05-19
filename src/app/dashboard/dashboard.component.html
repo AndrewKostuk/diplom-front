@@ -22,7 +22,7 @@
         <a class="nav-link">Аптека <span class="sr-only">(current)</span></a>
       </li>
       <li class="nav-item active">
-        <a class="nav-link">Заказ талона <span class="sr-only">(current)</span></a>
+        <a (click)="goToOrder()" class="btn nav-link">Заказ талона <span class="sr-only">(current)</span></a>
       </li>
       <li class="nav-item active">
         <a class="nav-link">Выезд на дом <span class="sr-only">(current)</span></a>
@@ -48,7 +48,7 @@
     Берегите себя и будьте здоровы!</h3>
 </div>
 
-<footer class="footer">
+<footer class="fixed-bottom footer">
   <div class="footer__row">
     <div class="footer__copy col-2">Copy, 2021</div>
     <div class="footer__text col-7 pl-3">Hospital App</div>

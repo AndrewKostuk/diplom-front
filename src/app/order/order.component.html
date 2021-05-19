@@ -1,0 +1,114 @@
+<div class="wrapper">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top" id="nav-container">
+        <a class="navbar-brand" style="color:white;">Hospital App</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor02"
+            aria-controls="navbarColor02" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarColor02">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item active">
+                    <div class="dropdown">
+                        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownOrderButton"
+                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Заказ услуг
+                        </button>
+                        <div class="dropdown-menu" aria-labelledby="dropdownOrderButton">
+                            <a class="dropdown-item" href="#">Запись на анализы</a>
+                            <a class="dropdown-item" href="#">Запись на процедуры</a>
+                        </div>
+                    </div>
+                </li>
+                <li class="nav-item active">
+                    <a class="nav-link">Аптека <span class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item active">
+                    <a class="btn nav-link">Заказ талона <span class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item active">
+                    <a class="nav-link">Выезд на дом <span class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item active">
+                    <a class="nav-link">Контакты <span class="sr-only">(current)</span></a>
+                </li>
+            </ul>
+
+            <a *ngIf="isAuthenticated" (click)="goToPersonalAccount()" class="nav-link"
+                style="color:white; cursor: pointer;">Личный кабинет</a>
+        </div>
+    </nav>
+
+    <div class="content pt-3 ml-auto mr-auto pr-5 pl-5">
+        <nav aria-label="breadcrumb" class="main-breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+                <li class="breadcrumb-item active" aria-current="page"><a href="/account">User Profile</a></li>
+                <li class="breadcrumb-item active" aria-current="page">Order</li>
+            </ol>
+        </nav>
+
+        <h3>К какому врачу хотите записаться?</h3>
+        <h6 *ngIf="specs?.length==0">На данный момент доступные врачи отсутствуют</h6>
+
+        <table *ngIf="specs?.length!=0" class="table table-bordered mt-4 w-100" style="table-layout: fixed;">
+            <td *ngFor="let spec of specs; let i = index" class="btn d-table-cell" (click)="getTickets(spec.id)">
+                {{spec.name}}
+            </td>
+        </table>
+
+        <h6 *ngIf="freeTickets && freeTickets.length <= 0 && !isConfirmed">У нас пока нет таких талонов</h6>
+        <h3 *ngIf="freeTickets && freeTickets.length > 0 && !isConfirmed">Доступные талоны</h3>
+        <table *ngIf="freeTickets && freeTickets.length > 0 && !isConfirmed" class="table mt-3">
+            <thead>
+                <tr>
+                    <th scope="col">№</th>
+                    <th scope="col">Дата</th>
+                    <th scope="col">Врач</th>
+                    <th scope="col">Специализация</th>
+                    <th scope="col">Номер кабинета</th>
+                    <th scope="col">Заказать</th>
+                </tr>
+            </thead>
+            <tbody>
+                <ng-container *ngFor="let dticket of freeTickets; let i = index">
+                    <tr>
+                        <th scope="row">{{i+1}}</th>
+                        <td>{{dticket.dateTime}}</td>
+                        <td>{{dticket.lastName}} {{dticket.firstName}} {{dticket.patronymic}}</td>
+                        <td>{{dticket.speciality}}</td>
+                        <td>{{dticket.roomNumber}}</td>
+                        <td><a class="btn btn-success text-white" (click)="openModal(content,dticket.id)">Заказать</a></td>
+                    </tr>
+                </ng-container>
+            </tbody>
+        </table>
+        <h3 *ngIf="isConfirmed">Талон заказан</h3>
+    </div>
+
+    <footer class="fixed-bottom footer">
+        <div class="footer__row">
+            <div class="footer__copy col-2">Copy, 2021</div>
+            <div class="footer__text col-7 pl-3">Hospital App</div>
+        </div>
+    </footer>
+</div>
+
+
+<ng-template #content let-c="close" let-d="dismiss">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title" id="modal-basic-title">Подтверждение</h5>
+            <button type="button" class="close" aria-label="Close" data-dismiss="modal" (click)="d('Cross click')">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <div class="modal-body">
+            <div>Вы действительно хотите заказать талон?</div>
+        </div>
+        <div class="modal-footer">
+            <button type="button" id="confirm-cancel-button" class="btn btn-secondary" data-dismiss="modal"
+                (click)="d('Cross click')">Нет</button>
+            <button type="button" class="btn btn-primary" (click)="c('yes')">Да</button>
+        </div>
+    </div>
+</ng-template>

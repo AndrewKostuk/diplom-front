@@ -77,4 +77,9 @@ export class DashboardComponent implements OnInit {
   goToPersonalAccount() {
     this.router.navigateByUrl('/account');
   }
+  goToOrder() {
+    if (this.isAuthenticated)
+      this.router.navigateByUrl('order/all');
+    else this.onOpenModal('login');
+  }
 }

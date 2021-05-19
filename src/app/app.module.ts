@@ -8,6 +8,8 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { AppRoutingModule } from './app-routing/app-routing.module';
 import { PersonalAccountComponent } from './personal-account/personal-account.component';
 import { PlannedVisitsComponent } from './planned-visits/planned-visits.component';
+import { MyHistoryComponent } from './my-history/my-history.component';
+import { OrderComponent } from './order/order.component';
 
 @Injectable()
 export class XhrInterceptor implements HttpInterceptor {
@@ -26,7 +28,9 @@ export class XhrInterceptor implements HttpInterceptor {
     AppComponent,
     DashboardComponent,
     PersonalAccountComponent,
-    PlannedVisitsComponent
+    PlannedVisitsComponent,
+    MyHistoryComponent,
+    OrderComponent
   ],
   imports: [
     BrowserModule,

@@ -1,3 +1,5 @@
+import { OrderComponent } from './../order/order.component';
+import { MyHistoryComponent } from './../my-history/my-history.component';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule, Routes } from '@angular/router';
@@ -18,6 +20,14 @@ const routes: Routes = [
   {
     path: 'account/plannedVisits',
     component: PlannedVisitsComponent,
+  },
+  {
+    path: 'account/myHistory',
+    component: MyHistoryComponent,
+  },
+  {
+    path: 'order/all',
+    component: OrderComponent,
   }
 ];
 

@@ -33,3 +33,26 @@ export class DoctorTicketDto {
     speciality: string;
     roomNumber: string;
 }
+
+class PharmacyDto {
+    name: string;
+    dose: string;
+    amountPerDay: number;
+    food: String;
+    courseDuration: number;
+}
+
+class ProcedureDto {
+    id: number;
+    name: string;
+    amount: number;
+}
+
+export class VisitDto {
+    id: number;
+    doctorTicketDto: DoctorTicketDto;
+    diagnoses: { id: number, name: string }[];
+    analyses: { id: number, name: string }[];
+    pharmacies: PharmacyDto[];
+    procedures: ProcedureDto[];
+}

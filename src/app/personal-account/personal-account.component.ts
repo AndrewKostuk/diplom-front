@@ -15,10 +15,7 @@ export class PersonalAccountComponent implements OnInit {
   userDto: UserDto = new UserDto();
   isAuthenticated: boolean;
 
-  analyses: ServiceTicketDto[];
-  procedures: ServiceTicketDto[];
-  tickets: DoctorTicketDto[];
-  home: DoctorTicketDto[];
+  
 
   constructor(private http: HttpClient, public accountService: AccountService, private router: Router) {
 
@@ -27,7 +24,6 @@ export class PersonalAccountComponent implements OnInit {
   ngOnInit(): void {
     this.getUserProfile();
     this.isAuthenticated = sessionStorage.getItem('token') ? true : false;
-    this.getPlannedVisits();
   }
 
   logout() {
@@ -35,28 +31,13 @@ export class PersonalAccountComponent implements OnInit {
     this.router.navigateByUrl('');
   }
 
-  getPlannedVisits() {
-    const headers: HttpHeaders = new HttpHeaders({
-      Authorization: 'Basic ' + sessionStorage.getItem('token')
-    });
-    this.http.get<any>(`${this.apiServerUrl}/profile/plannedVisits`, { headers: headers }).subscribe(
-      (response: any) => {
-        this.analyses = response['analyses'];
-        this.procedures = response['procedure'];
-        this.tickets = response['tickets'];
-        this.home = response['home'];
-        console.log(this.analyses);
-        console.log(this.procedures);
-        console.log(this.tickets);
-        console.log(this.home);
-        console.log(response);
-      },
-      (error: HttpErrorResponse) => {
-        alert(error.message);
-      }
-    );
+  plannedVisits(){
+    this.router.navigateByUrl('account/plannedVisits');
   }
 
+  userHistory(){
+    this.router.navigateByUrl('account/myHistory');
+  }
 
   getUserProfile() {
     const headers: HttpHeaders = new HttpHeaders({
@@ -90,12 +71,12 @@ export class PersonalAccountComponent implements OnInit {
     this.photoUrl = '';
   }
 
-  edit() {
+  edit(user:UserDto) {
     const headers: HttpHeaders = new HttpHeaders({
       //'Content-Type': 'application/json',
       Authorization: 'Basic ' + sessionStorage.getItem('token')
     });
-    this.http.put<UserDto>(`${this.apiServerUrl}/profile/edit`, this.userDto, { headers: headers }).subscribe(
+    this.http.put<UserDto>(`${this.apiServerUrl}/profile/edit`, user, { headers: headers }).subscribe(
       (response: UserDto) => {
         this.userDto = response;
         console.log(response);

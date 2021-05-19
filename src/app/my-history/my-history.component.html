@@ -1,0 +1,138 @@
+<div class="wrapper">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top" id="nav-container">
+        <a class="navbar-brand" style="color:white;">Hospital App</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor02"
+            aria-controls="navbarColor02" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarColor02">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item active">
+                    <div class="dropdown">
+                        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownOrderButton"
+                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Заказ услуг
+                        </button>
+                        <div class="dropdown-menu" aria-labelledby="dropdownOrderButton">
+                            <a class="dropdown-item" href="#">Запись на анализы</a>
+                            <a class="dropdown-item" href="#">Запись на процедуры</a>
+                        </div>
+                    </div>
+                </li>
+                <li class="nav-item active">
+                    <a class="nav-link">Аптека <span class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item active">
+                    <a class="btn nav-link">Заказ талона <span class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item active">
+                    <a class="nav-link">Выезд на дом <span class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item active">
+                    <a class="nav-link">Контакты <span class="sr-only">(current)</span></a>
+                </li>
+            </ul>
+
+            <a *ngIf="isAuthenticated" (click)="goToPersonalAccount()" class="nav-link"
+                style="color:white; cursor: pointer;">Личный кабинет</a>
+        </div>
+    </nav>
+
+    <div class="content pt-3 ml-auto mr-auto pr-5 pl-5">
+        <nav aria-label="breadcrumb" class="main-breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+                <li class="breadcrumb-item active" aria-current="page"><a href="/account">User Profile</a></li>
+                <li class="breadcrumb-item active" aria-current="page">My History</li>
+            </ol>
+        </nav>
+
+        <h3>История болезней</h3>
+        <h6 *ngIf="visits?.length==0">Ваша история пуста</h6>
+
+        <table *ngIf="visits?.length!=0" class="table table-bordered mt-4">
+            <thead class="text-center">
+                <tr>
+                    <th scope="col" rowspan="2" class="align-middle">№</th>
+                    <th scope="col" rowspan="2" class="align-middle">Дата</th>
+                    <th scope="col" rowspan="2" class="align-middle">Врач</th>
+                    <th scope="col" rowspan="2" class="align-middle">Диагнозы</th>
+                    <th scope="col" rowspan="2" class="align-middle">Анализы</th>
+                    <th scope="col" colspan="2" class="align-middle">Процедуры</th>
+                    <th scope="col" colspan="5" class="align-middle">Лекарства</th>
+                </tr>
+                <tr>
+                    <td class="align-middle">Название</td>
+                    <td class="align-middle">Количество</td>
+                    <td class="align-middle">Название</td>
+                    <td class="align-middle">Доза</td>
+                    <td class="align-middle">Интервал, в день</td>
+                    <td class="align-middle"></td>
+                    <td class="align-middle">Продолжительность, дней</td>
+                </tr>
+            </thead>
+            <tbody>
+                <ng-container *ngFor="let visit of visits; let i = index">
+                    <tr>
+                        <th scope="row">{{i+1}}</th>
+                        <td>{{visit.doctorTicketDto.dateTime}}</td>
+                        <td>{{visit.doctorTicketDto.lastName}} {{visit.doctorTicketDto.firstName}}
+                            {{visit.doctorTicketDto.patronymic}}</td>
+                        <td>
+                            <table>
+                                <tr *ngFor="let diagnosis of visit.diagnoses">{{diagnosis.name}}</tr>
+                            </table>
+                        </td>
+                        <td>
+                            <table>
+                                <tr *ngFor="let analysis of visit.analyses">{{analysis.name}}</tr>
+                            </table>
+                        </td>
+                        <td>
+                            <table>
+                                <tr *ngFor="let procedure of visit.procedures">{{procedure.name}}</tr>
+                            </table>
+                        </td>
+                        <td>
+                            <table>
+                                <tr *ngFor="let procedure of visit.procedures">{{procedure.amount}}</tr>
+                            </table>
+                        </td>
+                        <td>
+                            <table>
+                                <tr *ngFor="let pharmacy of visit.pharmacies">{{pharmacy.name}}</tr>
+                            </table>
+                        </td>
+                        <td>
+                            <table>
+                                <tr *ngFor="let pharmacy of visit.pharmacies">{{pharmacy.dose}}</tr>
+                            </table>
+                        </td>
+                        <td>
+                            <table>
+                                <tr *ngFor="let pharmacy of visit.pharmacies">{{pharmacy.amountPerDay}}</tr>
+                            </table>
+                        </td>
+                        <td>
+                            <table>
+                                <tr *ngFor="let pharmacy of visit.pharmacies">{{pharmacy.food}}</tr>
+                            </table>
+                        </td>
+                        <td>
+                            <table>
+                                <tr *ngFor="let pharmacy of visit.pharmacies">{{pharmacy.courseDuration}}</tr>
+                            </table>
+                        </td>
+                    </tr>
+                </ng-container>
+            </tbody>
+        </table>
+    </div>
+
+    <footer class="fixed-bottom footer">
+        <div class="footer__row">
+            <div class="footer__copy col-2">Copy, 2021</div>
+            <div class="footer__text col-7 pl-3">Hospital App</div>
+        </div>
+    </footer>
+</div>

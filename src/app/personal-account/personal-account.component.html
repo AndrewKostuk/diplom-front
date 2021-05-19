@@ -22,7 +22,7 @@
         <a class="nav-link">Аптека <span class="sr-only">(current)</span></a>
       </li>
       <li class="nav-item active">
-        <a class="nav-link">Заказ талона <span class="sr-only">(current)</span></a>
+        <a class="btn nav-link">Заказ талона <span class="sr-only">(current)</span></a>
       </li>
       <li class="nav-item active">
         <a class="nav-link">Выезд на дом <span class="sr-only">(current)</span></a>
@@ -76,29 +76,29 @@
           </div>
         </div>
         <div class="d-flex flex-column">
-          <div class="btn btn-primary pt-3 pb-3 mt-2 mb-2">Ближайшие визиты</div>
-          <div class="btn btn-primary pt-3 pb-3 mt-2 mb-2">История болезней</div>
+          <div class="btn btn-primary pt-3 pb-3 mt-2 mb-2" (click)="plannedVisits()">Ближайшие визиты</div>
+          <div class="btn btn-primary pt-3 pb-3 mt-2 mb-2" (click)="userHistory()">История болезней</div>
         </div>
 
       </div>
       <div class="col-md-8">
         <div class="card mb-3">
-          <form #editForm="ngForm" (ngSubmit)="edit()">
+          <form #editForm="ngForm" (ngSubmit)="edit(editForm.value)">
             <div class="card-body">
               <input type="hidden" ngModel="{{userDto?.id}}" name="id" class="form-control" id="id" placeholder="id">
               <div class="row mr-1">
                 <label class="col-sm-3 pt-2 mb-0" for="phone">
                   <h6>Телефон</h6>
                 </label>
-                <input type="text" [(ngModel)]="userDto.phone" name="phone" class=" col-sm-9 form-control" id="phone"
-                  placeholder="Телефон">
+                <input type="text" ngModel="{{userDto?.phone}}" name="phone" class=" col-sm-9 form-control"
+                  id="phone" placeholder="Телефон">
               </div>
               <hr>
               <div class="row mr-1">
                 <label class="col-sm-3 pt-2 mb-0" for="city">
                   <h6>Город</h6>
                 </label>
-                <input type="text" [(ngModel)]="userDto.city" name="city" class=" col-sm-9 form-control" id="city"
+                <input type="text" ngModel="{{userDto?.city}}" name="city" class=" col-sm-9 form-control" id="city"
                   placeholder="Город" list="datalistOptions">
                 <datalist id="datalistOptions">
                   <option value="Минск"></option>
@@ -114,23 +114,23 @@
                 <label class="col-sm-3 pt-2 mb-0" for="street">
                   <h6>Улица</h6>
                 </label>
-                <input type="text" [(ngModel)]="userDto.street" name="street" class=" col-sm-9 form-control" id="street"
-                  placeholder="Улица">
+                <input type="text" ngModel="{{userDto?.street}}" name="street" class=" col-sm-9 form-control"
+                  id="street" placeholder="Улица">
               </div>
               <hr>
               <div class="row mr-1">
                 <label class="col-sm-3 pt-2 mb-0" for="house">
                   <h6>Дом</h6>
                 </label>
-                <input type="text" [(ngModel)]="userDto.house" name="house" class=" col-sm-9 form-control" id="house"
-                  placeholder="Дом">
+                <input type="text" ngModel="{{userDto?.house}}" name="house" class=" col-sm-9 form-control"
+                  id="house" placeholder="Дом">
               </div>
               <hr>
               <div class="row mr-1">
                 <label class="col-sm-3 pt-2 mb-0" for="flat">
                   <h6>Квартира</h6>
                 </label>
-                <input type="text" [(ngModel)]="userDto.flat" name="flat" class="col-sm-9 form-control" id="flat"
+                <input type="text" ngModel="{{userDto?.flat}}" name="flat" class="col-sm-9 form-control" id="flat"
                   placeholder="Квартира">
               </div>
               <hr>
@@ -138,7 +138,7 @@
                 <label class="col-sm-3 pt-2 mb-0" for="birthDate">
                   <h6>Дата рождения</h6>
                 </label>
-                <input type="text" [(ngModel)]="userDto.birthDate" name="birthDate" class="col-sm-9 form-control"
+                <input type="text" ngModel="{{userDto?.birthDate}}" name="birthDate" class="col-sm-9 form-control"
                   id="birthDate" placeholder="Дата рождения">
               </div>
               <hr>
@@ -146,7 +146,7 @@
                 <label class="col-sm-3 pt-2 mb-0" for="gender">
                   <h6>Пол</h6>
                 </label>
-                <select name="gender" [(ngModel)]="userDto.gender" class="col-sm-9 form-control">
+                <select name="gender" ngModel="{{userDto?.gender}}" class="col-sm-9 form-control">
                   <option value="Мужской">Мужской</option>
                   <option value="Женский">Женский</option>
                 </select>
@@ -158,184 +158,12 @@
             </div>
           </form>
         </div>
-
-
-
-
-
-
-
-        <!-- <div class="row gutters-sm">
-                <div class="col-sm-6 mb-3">
-                  <div class="card h-100">
-                    <div class="card-body">
-                      <h6 class="d-flex align-items-center mb-3"><i class="material-icons text-info mr-2">assignment</i>Project Status</h6>
-                      <small>Web Design</small>
-                      <div class="progress mb-3" style="height: 5px">
-                        <div class="progress-bar bg-primary" role="progressbar" style="width: 80%" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100"></div>
-                      </div>
-                      <small>Website Markup</small>
-                      <div class="progress mb-3" style="height: 5px">
-                        <div class="progress-bar bg-primary" role="progressbar" style="width: 72%" aria-valuenow="72" aria-valuemin="0" aria-valuemax="100"></div>
-                      </div>
-                      <small>One Page</small>
-                      <div class="progress mb-3" style="height: 5px">
-                        <div class="progress-bar bg-primary" role="progressbar" style="width: 89%" aria-valuenow="89" aria-valuemin="0" aria-valuemax="100"></div>
-                      </div>
-                      <small>Mobile Template</small>
-                      <div class="progress mb-3" style="height: 5px">
-                        <div class="progress-bar bg-primary" role="progressbar" style="width: 55%" aria-valuenow="55" aria-valuemin="0" aria-valuemax="100"></div>
-                      </div>
-                      <small>Backend API</small>
-                      <div class="progress mb-3" style="height: 5px">
-                        <div class="progress-bar bg-primary" role="progressbar" style="width: 66%" aria-valuenow="66" aria-valuemin="0" aria-valuemax="100"></div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div class="col-sm-6 mb-3">
-                  <div class="card h-100">
-                    <div class="card-body">
-                      <h6 class="d-flex align-items-center mb-3"><i class="material-icons text-info mr-2">assignment</i>Project Status</h6>
-                      <small>Web Design</small>
-                      <div class="progress mb-3" style="height: 5px">
-                        <div class="progress-bar bg-primary" role="progressbar" style="width: 80%" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100"></div>
-                      </div>
-                      <small>Website Markup</small>
-                      <div class="progress mb-3" style="height: 5px">
-                        <div class="progress-bar bg-primary" role="progressbar" style="width: 72%" aria-valuenow="72" aria-valuemin="0" aria-valuemax="100"></div>
-                      </div>
-                      <small>One Page</small>
-                      <div class="progress mb-3" style="height: 5px">
-                        <div class="progress-bar bg-primary" role="progressbar" style="width: 89%" aria-valuenow="89" aria-valuemin="0" aria-valuemax="100"></div>
-                      </div>
-                      <small>Mobile Template</small>
-                      <div class="progress mb-3" style="height: 5px">
-                        <div class="progress-bar bg-primary" role="progressbar" style="width: 55%" aria-valuenow="55" aria-valuemin="0" aria-valuemax="100"></div>
-                      </div>
-                      <small>Backend API</small>
-                      <div class="progress mb-3" style="height: 5px">
-                        <div class="progress-bar bg-primary" role="progressbar" style="width: 66%" aria-valuenow="66" aria-valuemin="0" aria-valuemax="100"></div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div> -->
       </div>
-
-      <h3>Запланированные посещения</h3>
-
-      <table class="table mt-3">
-        <thead>
-          <h6>Анализы</h6>
-        </thead>
-        <thead>
-          <tr>
-            <th scope="col">№</th>
-            <th scope="col">Дата</th>
-            <th scope="col">Название</th>
-            <th scope="col">Номер кабинета</th>
-            <th scope="col">Отмена записи</th>
-          </tr>
-        </thead>
-        <tbody>
-          <ng-container *ngFor="let analysis of analyses; let i = index">
-            <tr>
-              <th scope="row">{{i+1}}</th>
-              <td>{{analysis.dateTime}}</td>
-              <td>{{analysis.name}}</td>
-              <td>{{analysis.roomNumber}}</td>
-              <td><a class="btn btn-danger text-white">Отменить</a></td>
-            </tr>
-          </ng-container>
-        </tbody>
-      </table>
-
-      <table class="table mt-3">
-        <thead>
-          <h6>Процедуры</h6>
-        </thead>
-        <thead>
-          <tr>
-            <th scope="col">№</th>
-            <th scope="col">Дата</th>
-            <th scope="col">Название</th>
-            <th scope="col">Номер кабинета</th>
-            <th scope="col">Отмена записи</th>
-          </tr>
-        </thead>
-        <tbody>
-          <ng-container *ngFor="let procedure of procedures; let i = index">
-            <tr>
-              <th scope="row">{{i+1}}</th>
-              <td>{{procedure.dateTime}}</td>
-              <td>{{procedure.name}}</td>
-              <td>{{procedure.roomNumber}}</td>
-              <td><a class="btn btn-danger text-white">Отменить</a></td>
-            </tr>
-          </ng-container>
-        </tbody>
-      </table>
-
-      <table class="table mt-3">
-        <thead>
-          <h6>Визиты к врачу</h6>
-        </thead>
-        <thead>
-          <tr>
-            <th scope="col">№</th>
-            <th scope="col">Дата</th>
-            <th scope="col">Врач</th>
-            <th scope="col">Специализация</th>
-            <th scope="col">Номер кабинета</th>
-            <th scope="col">Отмена записи</th>
-          </tr>
-        </thead>
-        <tbody>
-          <ng-container *ngFor="let dticket of tickets; let i = index">
-            <tr>
-              <th scope="row">{{i+1}}</th>
-              <td>{{dticket.dateTime}}</td>
-              <td>{{dticket.lastName}} {{dticket.firstName}} {{dticket.patronymic}}</td>
-              <td>{{dticket.speciality}}</td>
-              <td>{{dticket.roomNumber}}</td>
-              <td><a class="btn btn-danger text-white">Отменить</a></td>
-            </tr>
-          </ng-container>
-        </tbody>
-      </table>
-
-      <table class="table mt-3">
-        <thead>
-          <h6>Вызовы на дом</h6>
-        </thead>
-        <thead>
-          <tr>
-            <th scope="col">№</th>
-            <th scope="col">Дата</th>
-            <th scope="col">Врач</th>
-            <th scope="col">Специализация</th>
-            <th scope="col">Отмена записи</th>
-          </tr>
-        </thead>
-        <tbody>
-          <ng-container *ngFor="let hticket of home; let i = index">
-            <tr>
-              <th scope="row">{{i+1}}</th>
-              <td>{{hticket.dateTime}}</td>
-              <td>{{hticket.lastName}} {{hticket.firstName}} {{hticket.patronymic}}</td>
-              <td>{{hticket.speciality}}</td>
-              <td><a class="btn btn-danger text-white">Отменить</a></td>
-            </tr>
-          </ng-container>
-        </tbody>
-      </table>
-      <h3>История болезней</h3>
     </div>
   </div>
 </div>
 
-<footer class="footer">
+<footer class="fixed-bottom footer">
   <div class="footer__row">
     <div class="footer__copy col-2">Copy, 2021</div>
     <div class="footer__text col-7 pl-3">Hospital App</div>
