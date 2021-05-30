@@ -31,12 +31,11 @@ export class MyHistoryComponent implements OnInit {
       });
       this.http.get<any>(`${this.apiServerUrl}/profile/myHistory`, { headers: headers }).subscribe(
         (response: any) => {
-          this.visits = response;
-        
+          this.visits = response; 
           console.log(response);
         },
         (error: HttpErrorResponse) => {
-          alert(error.message);
+          alert(error.error);
         }
       );
   }

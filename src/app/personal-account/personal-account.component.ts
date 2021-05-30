@@ -49,7 +49,7 @@ export class PersonalAccountComponent implements OnInit {
         console.log(response);
       },
       (error: HttpErrorResponse) => {
-        alert(error.message);
+        alert(error.error);
       }
     );
   }
@@ -83,7 +83,7 @@ export class PersonalAccountComponent implements OnInit {
         alert('Данные сохранены');
       },
       (error: HttpErrorResponse) => {
-        alert(error.message);
+        alert(error.error);
       }
     );
   }

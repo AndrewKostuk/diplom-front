@@ -40,7 +40,7 @@ export class PlannedVisitsComponent implements OnInit {
         this.analyses = response;
       },
       (error: HttpErrorResponse) => {
-        alert(error.message);
+        alert(error.error);
       }
     );
   }
@@ -54,7 +54,7 @@ export class PlannedVisitsComponent implements OnInit {
         this.procedures = response;
       },
       (error: HttpErrorResponse) => {
-        alert(error.message);
+        alert(error.error);
       }
     );
   }
@@ -67,7 +67,7 @@ export class PlannedVisitsComponent implements OnInit {
         this.tickets = response;
       },
       (error: HttpErrorResponse) => {
-        alert(error.message);
+        alert(error.error);
       }
     );
   }
@@ -81,7 +81,7 @@ export class PlannedVisitsComponent implements OnInit {
         this.home = response;
       },
       (error: HttpErrorResponse) => {
-        alert(error.message);
+        alert(error.error);
       }
     );
   }
@@ -98,7 +98,7 @@ export class PlannedVisitsComponent implements OnInit {
         this.home = response['home'];
       },
       (error: HttpErrorResponse) => {
-        alert(error.message);
+        alert(error.error);
       }
     );
   }

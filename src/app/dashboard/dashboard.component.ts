@@ -41,19 +41,20 @@ export class DashboardComponent implements OnInit {
         }
       },
       (error: HttpErrorResponse) => {
-        alert(error.message);
+        console.log(error);
+        alert(error.error["message"]);
       }
     );
   }
 
   register(regForm: NgForm) {
-    this.isRegisterPressed = true;
     this.accountService.register(regForm).subscribe(
       (response: string) => {
+        this.isRegisterPressed = true;
         console.log(response);
       },
       (error: HttpErrorResponse) => {
-        alert(error.message);
+        alert(error.error);     
       }
     );
   }

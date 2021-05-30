@@ -39,7 +39,7 @@ export class OrderComponent implements OnInit {
         console.log(response);
       },
       (error: HttpErrorResponse) => {
-        alert(error.message);
+        alert(error.error);
       }
     );
     console.log(this.freeTickets);
@@ -57,7 +57,7 @@ export class OrderComponent implements OnInit {
         console.log(response);
       },
       (error: HttpErrorResponse) => {
-        alert(error.message);
+        alert(error.error);
       }
     );
     console.log(this.freeTickets);
@@ -74,7 +74,7 @@ export class OrderComponent implements OnInit {
         this.freeTickets = [];
       },
       (error: HttpErrorResponse) => {
-        alert(error.message);
+        alert(error.error);
       }
     );
   }
